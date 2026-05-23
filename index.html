@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>台語小學堂｜臺灣台語學習站</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --paper: #fffaf2;
+      --ink: #2a2520;
+      --muted: #73695f;
+      --line: #e1d6c8;
+      --accent: #8b5e3c;
+      --accent-dark: #5f3e27;
+      --soft: #eadfce;
+      --good: #5d7a54;
+      --shadow: 0 18px 45px rgba(70, 45, 25, 0.10);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        "Noto Serif TC",
+        "Source Han Serif TC",
+        "PingFang TC",
+        "Microsoft JhengHei",
+        serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(139, 94, 60, 0.16), transparent 34rem),
+        linear-gradient(135deg, #f7f2ea 0%, #efe6da 45%, #f8f4ed 100%);
+      line-height: 1.72;
+    }
+
+    a {
+      color: var(--accent-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 18px 72px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 26px;
+    }
+
+    .hero,
+    .daily-card,
+    .panel,
+    .result-card {
+      background: rgba(255, 250, 242, 0.82);
+      border: 1px solid rgba(225, 214, 200, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+    }
+
+    .hero {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "Tâi-gí";
+      position: absolute;
+      right: 22px;
+      bottom: -28px;
+      font-size: 88px;
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      color: rgba(139, 94, 60, 0.075);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent-dark);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      color: var(--muted);
+      margin: 18px 0 0;
+      font-size: 16px;
+    }
+
+    .daily-card {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+
+    .daily-label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .daily-hanji {
+      font-size: 30px;
+      line-height: 1.3;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .tailo {
+      color: var(--accent-dark);
+      font-family:
+        "Noto Sans",
+        "Segoe UI",
+        "PingFang TC",
+        sans-serif;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+    }
+
+    .daily-meaning {
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .source {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .search-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 15px 16px;
+      font-size: 16px;
+      color: var(--ink);
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus {
+      border-color: rgba(139, 94, 60, 0.72);
+      box-shadow: 0 0 0 4px rgba(139, 94, 60, 0.12);
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 0 20px;
+      min-height: 52px;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      transition: transform 0.15s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #efe5d6;
+      color: var(--accent-dark);
+      min-height: 42px;
+      padding: 0 14px;
+      font-size: 13px;
+    }
+
+    button.secondary:hover {
+      background: #e5d4bd;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .quick-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, 0.75);
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .tag:hover {
+      color: var(--accent-dark);
+      border-color: rgba(139, 94, 60, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle input {
+      width: auto;
+      accent-color: var(--accent);
+    }
+
+    .results {
+      display: grid;
+      gap: 16px;
+    }
+
+    .result-card {
+      padding: 22px;
+      animation: rise 0.22s ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+
+    .hanji {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .meaning {
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #edf3e8;
+      color: var(--good);
+      padding: 4px 10px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .examples {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .example {
+      border-left: 3px solid rgba(139, 94, 60, 0.32);
+      background: rgba(234, 223, 206, 0.34);
+      border-radius: 0 14px 14px 0;
+      padding: 12px 14px;
+    }
+
+    .example-hanji {
+      font-weight: 700;
+    }
+
+    .example-meaning {
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .empty {
+      padding: 34px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 242, 0.48);
+    }
+
+    .note {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255, 250, 242, 0.52);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--ink);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
+      z-index: 50;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .hidden-tailo .tailo,
+    .hidden-tailo .example-tailo,
+    .hidden-tailo .daily-tailo {
+      filter: blur(4px);
+      cursor: pointer;
+      transition: filter 0.15s ease;
+    }
+
+    .hidden-tailo .tailo:hover,
+    .hidden-tailo .example-tailo:hover,
+    .hidden-tailo .daily-tailo:hover {
+      filter: blur(0);
+    }
+
+    @media (max-width: 800px) {
+      header {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 28px 22px;
+      }
+
+      .daily-card {
+        min-height: auto;
+      }
+
+      .search-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .result-top {
+        display: block;
+      }
+
+      .badge {
+        margin-top: 10px;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="app">
+    <header>
+      <section class="hero">
+        <div class="eyebrow">臺灣台語・Tâi-uân Tâi-gí</div>
+        <h1>台語小學堂</h1>
+        <p class="subtitle">
+          一个轻量的台语学习小站：可以检索正字、台罗、华语释义和用例；每日更新一句台语例语或短故事；读音与权威词条链接到教育部臺灣台語常用詞辭典。
+        </p>
+      </section>
+
+      <aside class="daily-card">
+        <div>
+          <div class="daily-label">今日台語｜Kin-á-ji̍t ê Tâi-gí</div>
+          <div class="daily-hanji" id="dailyHanji"></div>
+          <div class="daily-tailo tailo" id="dailyTailo"></div>
+          <div class="daily-meaning" id="dailyMeaning"></div>
+        </div>
+        <div class="source" id="dailySource"></div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="panel">
+        <label for="searchInput">模糊搜尋｜可輸入台語正字、台羅、華語、例句關鍵字</label>
+        <div class="search-wrap">
+          <input id="searchInput" type="search" placeholder="例如：食飯、吃飯、tsiah、睏、相借問……" autocomplete="off" />
+          <button id="clearBtn">清除</button>
+        </div>
+        <p class="hint">
+          小提示：这个版本是静态词库示范版。后续可以继续往里面加词，也可以改成读取外部 JSON 词库。
+        </p>
+        <div class="quick-tags" id="quickTags"></div>
+      </section>
+
+      <div class="toolbar">
+        <div id="resultCount"></div>
+        <label class="toggle">
+          <input type="checkbox" id="hideTailo" />
+          先隱藏台羅，滑過時顯示
+        </label>
+      </div>
+
+      <section class="results" id="results"></section>
+
+      <section class="note">
+        <strong>資料說明：</strong>
+        本頁內建詞條為學習示範資料，台羅以常見教學寫法整理；查正式讀音、音檔與更多詞義，請點擊每張卡片中的「教育部辭典」連結。
+        教育部辭典入口：
+        <a href="https://sutian.moe.edu.tw/zh-hant/" target="_blank" rel="noopener noreferrer">https://sutian.moe.edu.tw/zh-hant/</a>
+      </section>
+    </main>
+
+    <footer>
+      Tâi-gí Sió-ha̍k-tn̂g｜適合放在 GitHub Pages 的單檔靜態網站
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">已複製</div>
+
+  <script>
+    const MOE_BASE = "https://sutian.moe.edu.tw/zh-hant/";
+
+    const dictionary = [
+      {
+        type: "詞目",
+        hanji: "食飯",
+        tailo: "tsia̍h-pn̄g",
+        mandarin: "吃飯；用餐。",
+        keywords: ["吃饭", "用餐", "食饭", "食飯", "tsiah", "png"],
+        examples: [
+          {
+            hanji: "我欲去食飯。",
+            tailo: "Guá beh khì tsia̍h-pn̄g.",
+            mandarin: "我要去吃飯。"
+          },
+          {
+            hanji: "恁食飯矣未？",
+            tailo: "Lín tsia̍h-pn̄g ah-buē?",
+            mandarin: "你們吃飯了嗎？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "睏",
+        tailo: "khùn",
+        mandarin: "睡覺。",
+        keywords: ["睡", "睡觉", "睏", "困", "khun"],
+        examples: [
+          {
+            hanji: "我欲去睏矣。",
+            tailo: "Guá beh khì khùn--ah.",
+            mandarin: "我要去睡了。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "相借問",
+        tailo: "sio-tsioh-mn̄g",
+        mandarin: "互相問候；打招呼。",
+        keywords: ["问候", "打招呼", "相借问", "相借問", "sio", "tsioh", "mng"],
+        examples: [
+          {
+            hanji: "厝邊頭尾攏會相借問。",
+            tailo: "Tshù-pinn thâu-bué lóng ē sio-tsioh-mn̄g.",
+            mandarin: "鄰居們都會互相問候。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "毋知",
+        tailo: "m̄-tsai",
+        mandarin: "不知道。",
+        keywords: ["不知道", "不知", "毋知", "m tsai", "mtsai"],
+        examples: [
+          {
+            hanji: "這件代誌我毋知。",
+            tailo: "Tsit kiānn tāi-tsì guá m̄-tsai.",
+            mandarin: "這件事情我不知道。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "拍謝",
+        tailo: "pháinn-sè",
+        mandarin: "不好意思；抱歉。",
+        keywords: ["抱歉", "不好意思", "拍谢", "拍謝", "phainn se"],
+        examples: [
+          {
+            hanji: "拍謝，予你等遮久。",
+            tailo: "Pháinn-sè, hōo lí tán tsiah kú.",
+            mandarin: "不好意思，讓你等這麼久。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "媠",
+        tailo: "suí",
+        mandarin: "漂亮；美。",
+        keywords: ["漂亮", "美", "好看", "媠", "sui"],
+        examples: [
+          {
+            hanji: "這領衫誠媠。",
+            tailo: "Tsit niá sann tsiânn suí.",
+            mandarin: "這件衣服很漂亮。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "佮",
+        tailo: "kah",
+        mandarin: "和；跟；與。",
+        keywords: ["和", "跟", "与", "與", "佮", "kah"],
+        examples: [
+          {
+            hanji: "我佮伊欲去市場。",
+            tailo: "Guá kah i beh khì tshī-tiûnn.",
+            mandarin: "我和他要去市場。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "欲",
+        tailo: "beh",
+        mandarin: "要；想要；將要。",
+        keywords: ["要", "想要", "将要", "將要", "欲", "beh"],
+        examples: [
+          {
+            hanji: "你欲食啥物？",
+            tailo: "Lí beh tsia̍h siánn-mih?",
+            mandarin: "你想吃什麼？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "遮",
+        tailo: "tsia",
+        mandarin: "這裡。",
+        keywords: ["这里", "這裡", "这儿", "遮", "tsia"],
+        examples: [
+          {
+            hanji: "你來遮坐。",
+            tailo: "Lí lâi tsia tsē.",
+            mandarin: "你來這裡坐。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "遐",
+        tailo: "hia",
+        mandarin: "那裡。",
+        keywords: ["那里", "那裡", "那儿", "遐", "hia"],
+        examples: [
+          {
+            hanji: "伊佇遐等你。",
+            tailo: "I tī hia tán lí.",
+            mandarin: "他在那裡等你。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "厝",
+        tailo: "tshù",
+        mandarin: "房子；家。",
+        keywords: ["房子", "家", "厝", "tshu"],
+        examples: [
+          {
+            hanji: "我欲轉去厝。",
+            tailo: "Guá beh tńg-khì tshù.",
+            mandarin: "我要回家。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "代誌",
+        tailo: "tāi-tsì",
+        mandarin: "事情。",
+        keywords: ["事情", "事", "代志", "代誌", "tai tsi"],
+        examples: [
+          {
+            hanji: "這毋是細代誌。",
+            tailo: "Tse m̄ sī sè tāi-tsì.",
+            mandarin: "這不是小事情。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "袂使",
+        tailo: "bē-sái",
+        mandarin: "不可以；不能。",
+        keywords: ["不可以", "不能", "袂使", "be sai"],
+        examples: [
+          {
+            hanji: "這款話袂使亂講。",
+            tailo: "Tsit khuán uē bē-sái luān kóng.",
+            mandarin: "這種話不能亂說。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "閣再",
+        tailo: "koh-tsài",
+        mandarin: "再一次；再次。",
+        keywords: ["再次", "再一次", "阁再", "閣再", "koh tsai"],
+        examples: [
+          {
+            hanji: "請你閣再講一擺。",
+            tailo: "Tshiánn lí koh-tsài kóng tsi̍t pái.",
+            mandarin: "請你再說一次。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "逐家",
+        tailo: "ta̍k-ke",
+        mandarin: "大家。",
+        keywords: ["大家", "逐家", "tak ke"],
+        examples: [
+          {
+            hanji: "逐家好。",
+            tailo: "Ta̍k-ke hó.",
+            mandarin: "大家好。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "感謝",
+        tailo: "kám-siā",
+        mandarin: "謝謝；感謝。",
+        keywords: ["谢谢", "謝謝", "感谢", "感謝", "kam sia"],
+        examples: [
+          {
+            hanji: "真感謝你的幫贊。",
+            tailo: "Tsin kám-siā lí ê pang-tsān.",
+            mandarin: "很感謝你的幫忙。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "歡喜",
+        tailo: "huann-hí",
+        mandarin: "高興；喜歡。",
+        keywords: ["高兴", "高興", "喜欢", "喜歡", "歡喜", "huann hi"],
+        examples: [
+          {
+            hanji: "我真歡喜看冊。",
+            tailo: "Guá tsin huann-hí khuànn-tsheh.",
+            mandarin: "我很喜歡看書。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "冊",
+        tailo: "tsheh",
+        mandarin: "書。",
+        keywords: ["书", "書", "册", "冊", "tsheh"],
+        examples: [
+          {
+            hanji: "這本冊真趣味。",
+            tailo: "Tsit pún tsheh tsin tshù-bī.",
+            mandarin: "這本書很有趣。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "看",
+        tailo: "khuànn",
+        mandarin: "看。",
+        keywords: ["看", "khuann"],
+        examples: [
+          {
+            hanji: "你看有著無？",
+            tailo: "Lí khuànn ū tio̍h bô?",
+            mandarin: "你有看到嗎？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "聽",
+        tailo: "thiann",
+        mandarin: "聽。",
+        keywords: ["听", "聽", "thiann"],
+        examples: [
+          {
+            hanji: "我欲聽台語歌。",
+            tailo: "Guá beh thiann Tâi-gí kua.",
+            mandarin: "我要聽台語歌。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "講",
+        tailo: "kóng",
+        mandarin: "說；講。",
+        keywords: ["说", "說", "讲", "講", "kong"],
+        examples: [
+          {
+            hanji: "你會曉講台語無？",
+            tailo: "Lí ē-hiáu kóng Tâi-gí bô?",
+            mandarin: "你會說台語嗎？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "會曉",
+        tailo: "ē-hiáu",
+        mandarin: "會；懂得。",
+        keywords: ["会", "會", "懂", "会晓", "會曉", "e hiau"],
+        examples: [
+          {
+            hanji: "伊會曉寫台羅。",
+            tailo: "I ē-hiáu siá Tâi-lô.",
+            mandarin: "他會寫台羅。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "無",
+        tailo: "bô",
+        mandarin: "沒有；句尾疑問詞。",
+        keywords: ["没有", "沒有", "吗", "嗎", "无", "無", "bo"],
+        examples: [
+          {
+            hanji: "你有閒無？",
+            tailo: "Lí ū îng bô?",
+            mandarin: "你有空嗎？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "有閒",
+        tailo: "ū-îng",
+        mandarin: "有空。",
+        keywords: ["有空", "有闲", "有閒", "u ing"],
+        examples: [
+          {
+            hanji: "拜六你有閒無？",
+            tailo: "Pài-la̍k lí ū-îng bô?",
+            mandarin: "星期六你有空嗎？"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "今仔日",
+        tailo: "kin-á-ji̍t",
+        mandarin: "今天。",
+        keywords: ["今天", "今仔日", "kin a jit"],
+        examples: [
+          {
+            hanji: "今仔日天氣真好。",
+            tailo: "Kin-á-ji̍t thinn-khì tsin hó.",
+            mandarin: "今天天氣很好。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "明仔載",
+        tailo: "bîn-á-tsài",
+        mandarin: "明天。",
+        keywords: ["明天", "明仔载", "明仔載", "bin a tsai"],
+        examples: [
+          {
+            hanji: "明仔載咱閣再見。",
+            tailo: "Bîn-á-tsài lán koh-tsài kìnn.",
+            mandarin: "明天我們再見。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "昨日",
+        tailo: "tsa̍-ji̍t",
+        mandarin: "昨天。",
+        keywords: ["昨天", "昨日", "tsa jit"],
+        examples: [
+          {
+            hanji: "昨日我去圖書館。",
+            tailo: "Tsa̍-ji̍t guá khì tôo-su-kuán.",
+            mandarin: "昨天我去圖書館。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "天氣",
+        tailo: "thinn-khì",
+        mandarin: "天氣。",
+        keywords: ["天气", "天氣", "thinn khi"],
+        examples: [
+          {
+            hanji: "今仔日天氣足熱。",
+            tailo: "Kin-á-ji̍t thinn-khì tsiok jua̍h.",
+            mandarin: "今天天氣很熱。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "足",
+        tailo: "tsiok",
+        mandarin: "很；十分。",
+        keywords: ["很", "十分", "非常", "足", "tsiok"],
+        examples: [
+          {
+            hanji: "這碗湯足好食。",
+            tailo: "Tsit uán thng tsiok hó-tsia̍h.",
+            mandarin: "這碗湯很好吃。"
+          }
+        ]
+      },
+      {
+        type: "詞目",
+        hanji: "好食",
+        tailo: "hó-tsia̍h",
+        mandarin: "好吃。",
+        keywords: ["好吃", "好食", "ho tsiah"],
+        examples: [
+          {
+            hanji: "這間店的物件真好食。",
+            tailo: "Tsit king tiàm ê mi̍h-kiānn tsin hó-tsia̍h.",
+            mandarin: "這家店的東西很好吃。"
+          }
+        ]
+      }
+    ];
+
+    const dailyItems = [
+      {
+        type: "俗語",
+        hanji: "一樣米飼百樣人。",
+        tailo: "Tsi̍t-iūnn bí tshī pah-iūnn lâng.",
+        mandarin: "同樣的米養出百樣的人。意思接近：人各有性情，不必強求一致。",
+        source: "常見台語俗語；台羅為本站學習整理。"
+      },
+      {
+        type: "例句",
+        hanji: "慢慢仔講，我聽有。",
+        tailo: "Bān-bān-á kóng, guá thiann ū.",
+        mandarin: "慢慢說，我聽得懂。",
+        source: "本站自編學習例句。"
+      },
+      {
+        type: "例句",
+        hanji: "今仔日我欲學三句台語。",
+        tailo: "Kin-á-ji̍t guá beh o̍h sann kù Tâi-gí.",
+        mandarin: "今天我要學三句台語。",
+        source: "本站自編學習例句。"
+      },
+      {
+        type: "俗語",
+        hanji: "食果子拜樹頭。",
+        tailo: "Tsia̍h kué-tsí pài tshiū-thâu.",
+        mandarin: "吃果子時感念樹根。意思接近：飲水思源。",
+        source: "常見台語俗語；台羅為本站學習整理。"
+      },
+      {
+        type: "短故事",
+        hanji: "阿明佇市場買菜，聽著一个阿婆講台語。伊毋知影彼句話的意思，就轉來查詞典。",
+        tailo: "A-bîng tī tshī-tiûnn bé tshài, thiann-tio̍h tsi̍t ê a-pô kóng Tâi-gí. I m̄ tsai-iánn hit kù uē ê ì-sù, tō tńg-lâi tshâ sû-tián.",
+        mandarin: "阿明在市場買菜，聽到一位阿婆說台語。他不知道那句話的意思，就回來查詞典。",
+        source: "本站自編學習短文。"
+      },
+      {
+        type: "例句",
+        hanji: "你毋免驚，逐字慢慢學就會通。",
+        tailo: "Lí m̄-bián kiann, ta̍k-jī bān-bān o̍h tō ē thang.",
+        mandarin: "你不用怕，一個字一個字慢慢學就可以。",
+        source: "本站自編學習例句。"
+      },
+      {
+        type: "例句",
+        hanji: "有閒的時，咱來練習講台語。",
+        tailo: "Ū-îng ê sî, lán lâi liān-si̍p kóng Tâi-gí.",
+        mandarin: "有空的時候，我們來練習說台語。",
+        source: "本站自編學習例句。"
+      }
+    ];
+
+    const quickWords = ["食飯", "拍謝", "逐家", "今仔日", "有閒", "好食", "台語", "不知道", "tsiah", "beh"];
+
+    const els = {
+      app: document.getElementById("app"),
+      searchInput: document.getElementById("searchInput"),
+      clearBtn: document.getElementById("clearBtn"),
+      results: document.getElementById("results"),
+      resultCount: document.getElementById("resultCount"),
+      quickTags: document.getElementById("quickTags"),
+      hideTailo: document.getElementById("hideTailo"),
+      toast: document.getElementById("toast"),
+      dailyHanji: document.getElementById("dailyHanji"),
+      dailyTailo: document.getElementById("dailyTailo"),
+      dailyMeaning: document.getElementById("dailyMeaning"),
+      dailySource: document.getElementById("dailySource")
+    };
+
+    function normalizeText(text) {
+      return String(text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’'`·・。！？!?，,、；;：:\-\s]/g, "")
+        .replace(/臺/g, "台")
+        .replace(/閒/g, "闲")
+        .replace(/飯/g, "饭")
+        .replace(/謝/g, "谢")
+        .replace(/誌/g, "志")
+        .replace(/聽/g, "听")
+        .replace(/講/g, "讲")
+        .replace(/會/g, "会")
+        .replace(/曉/g, "晓")
+        .replace(/無/g, "无");
+    }
+
+    function searchableText(item) {
+      const exampleText = item.examples
+        .map(ex => `${ex.hanji} ${ex.tailo} ${ex.mandarin}`)
+        .join(" ");
+      return [
+        item.type,
+        item.hanji,
+        item.tailo,
+        item.mandarin,
+        item.keywords.join(" "),
+        exampleText
+      ].join(" ");
+    }
+
+    function scoreItem(item, query) {
+      const q = normalizeText(query);
+      if (!q) return 1;
+
+      const fields = [
+        { text: item.hanji, weight: 80 },
+        { text: item.tailo, weight: 72 },
+        { text: item.mandarin, weight: 62 },
+        { text: item.keywords.join(" "), weight: 56 },
+        { text: searchableText(item), weight: 35 }
+      ];
+
+      let score = 0;
+      for (const field of fields) {
+        const t = normalizeText(field.text);
+        if (t === q) score += field.weight * 3;
+        else if (t.startsWith(q)) score += field.weight * 2;
+        else if (t.includes(q)) score += field.weight;
+      }
+
+      // A gentle fuzzy fallback: all query chars appear in order.
+      const full = normalizeText(searchableText(item));
+      let pos = 0;
+      for (const char of q) {
+        pos = full.indexOf(char, pos);
+        if (pos === -1) return score;
+        pos++;
+      }
+      score += Math.max(8, 30 - q.length);
+
+      return score;
+    }
+
+    function moeSearchUrl(item) {
+      return `${MOE_BASE}?q=${encodeURIComponent(item.hanji)}`;
+    }
+
+    function renderDaily() {
+      const today = new Date();
+      const key = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+      let hash = 0;
+      for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+      const item = dailyItems[hash % dailyItems.length];
+
+      els.dailyHanji.textContent = item.hanji;
+      els.dailyTailo.textContent = item.tailo;
+      els.dailyMeaning.textContent = item.mandarin;
+      els.dailySource.innerHTML = `類型：${item.type}<br>出處：${item.source}`;
+    }
+
+    function renderQuickTags() {
+      els.quickTags.innerHTML = quickWords
+        .map(word => `<span class="tag" data-word="${word}">${word}</span>`)
+        .join("");
+
+      els.quickTags.querySelectorAll(".tag").forEach(tag => {
+        tag.addEventListener("click", () => {
+          els.searchInput.value = tag.dataset.word;
+          renderResults();
+          els.searchInput.focus();
+        });
+      });
+    }
+
+    function resultTemplate(item) {
+      const examples = item.examples.map(ex => `
+        <div class="example">
+          <div class="example-hanji">${escapeHtml(ex.hanji)}</div>
+          <div class="example-tailo tailo">${escapeHtml(ex.tailo)}</div>
+          <div class="example-meaning">${escapeHtml(ex.mandarin)}</div>
+        </div>
+      `).join("");
+
+      return `
+        <article class="result-card">
+          <div class="result-top">
+            <div>
+              <div class="hanji">${escapeHtml(item.hanji)}</div>
+              <div class="tailo">${escapeHtml(item.tailo)}</div>
+              <div class="meaning">${escapeHtml(item.mandarin)}</div>
+            </div>
+            <span class="badge">${escapeHtml(item.type)}</span>
+          </div>
+
+          <div class="examples">${examples}</div>
+
+          <div class="actions">
+            <a href="${moeSearchUrl(item)}" target="_blank" rel="noopener noreferrer">
+              <button class="secondary">教育部辭典 / 音檔</button>
+            </a>
+            <button class="secondary" data-copy="${encodeURIComponent(copyText(item))}">複製學習提示詞</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderResults() {
+      const query = els.searchInput.value.trim();
+      let results = dictionary
+        .map(item => ({ item, score: scoreItem(item, query) }))
+        .filter(row => query ? row.score > 0 : true)
+        .sort((a, b) => b.score - a.score)
+        .map(row => row.item);
+
+      if (!query) {
+        results = results.slice(0, 12);
+        els.resultCount.textContent = `先顯示 ${results.length} 條常用詞；輸入關鍵字可搜尋完整內建詞庫。`;
+      } else {
+        els.resultCount.textContent = `找到 ${results.length} 條結果：${query}`;
+      }
+
+      if (results.length === 0) {
+        els.results.innerHTML = `
+          <div class="empty">
+            暫時無結果。可以換成華語、台羅或單字搜尋；也可以之後把這個詞加入內建詞庫。
+          </div>
+        `;
+        return;
+      }
+
+      els.results.innerHTML = results.map(resultTemplate).join("");
+
+      els.results.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const text = decodeURIComponent(btn.dataset.copy);
+          await copyToClipboard(text);
+        });
+      });
+    }
+
+    function copyText(item) {
+      const first = item.examples[0];
+      return [
+        "請幫我學習這條台語：",
+        "",
+        `正字：${item.hanji}`,
+        `台羅：${item.tailo}`,
+        `華語：${item.mandarin}`,
+        "",
+        `例句：${first.hanji}`,
+        `例句台羅：${first.tailo}`,
+        `例句華語：${first.mandarin}`,
+        "",
+        "請解釋詞義、語法、發音、常見搭配和可以替換的說法。"
+      ].join("\n");
+    }
+
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("已複製學習提示詞");
+      } catch (err) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+        showToast("已複製學習提示詞");
+      }
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        els.toast.classList.remove("show");
+      }, 1600);
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    els.searchInput.addEventListener("input", renderResults);
+    els.clearBtn.addEventListener("click", () => {
+      els.searchInput.value = "";
+      renderResults();
+      els.searchInput.focus();
+    });
+
+    els.hideTailo.addEventListener("change", () => {
+      els.app.classList.toggle("hidden-tailo", els.hideTailo.checked);
+    });
+
+    renderDaily();
+    renderQuickTags();
+    renderResults();
+  </script>
+</body>
+</html>
